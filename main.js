@@ -12,13 +12,33 @@ async function fetchinfo() {
 
   //DOM操作
   //characters全部を出力するならforEach使えばいいと思う
+  lists.textContent = "";
   chars.forEach(function (char) {
-    const li = document.createElement("li");
-    li.textContent = chars.name;
-    li.textContent = chars.birthday;
-    lists.appendChild(li);
+    const h2 = document.createElement("h2");
+    h2.textContent = "Nickname";
+    h2.classList.add("h2");
+    const name = document.createElement("li");
+    const nickname = document.createElement("li");
+    name.textContent = char.name;
+    nickname.textContent = char.nickname;
+    lists.appendChild(name);
+    lists.appendChild(h2);
+    lists.appendChild(nickname);
   });
 }
+
+// function display() {
+//   const div = document.createElement("div");
+//   const html = chars.map((char) => {
+//     return `
+//     <h2>${char.name}</h2>
+//     <div>
+
+//     </div>
+//     `;
+// });
+// div.appendChild(html);
+
 //Get quotesからURLをもう１度取って、autherを{}を埋め込む
 //とりあえずボタン押したらキャラクターの情報とquatesをゲットしたい
 //search機能もつけたい

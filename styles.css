@@ -1,3 +1,7 @@
-li, ul {
+.li, .ul {
   list-style: none;
+}
+
+.h2 {
+  color: green;
 }/*# sourceMappingURL=styles.css.map */
