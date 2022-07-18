@@ -15,15 +15,24 @@ async function fetchinfo() {
   lists.textContent = "";
   chars.forEach(function (char) {
     const h2 = document.createElement("h2");
-    h2.textContent = "Nickname";
-    h2.classList.add("h2");
     const name = document.createElement("li");
     const nickname = document.createElement("li");
+    const pic = document.createElement('img');
+    h2.classList.add("h2");
+    name.classList.add("li");
+    nickname.classList.add("li");
+    h2.textContent = "Nickname";
     name.textContent = char.name;
     nickname.textContent = char.nickname;
+    // pic.src = char."https://images.amcnetworks.com/amc.com/wp-content/uploads/2015/04/cast_bb_700x1000_walter-white-lg.jpg";
+    pic.setAttribute("src", `${char.img}`);
+    //  let catsImgEl = document.createElement("img"); //img要素作成
+    // catsImgEl.setAttribute("src", `${catsImgUrl}`);
+
     lists.appendChild(name);
     lists.appendChild(h2);
     lists.appendChild(nickname);
+    lists.appendChild(pic);
   });
 }
 
