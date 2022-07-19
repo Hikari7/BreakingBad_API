@@ -2,86 +2,116 @@ const getInfo = document.querySelector(".get_info");
 const lists = document.getElementById("lists");
 
 const charEndpoint = "https://www.breakingbadapi.com/api/character/random";
-const quoteEndpoint = `https://www.breakingbadapi.com/api/quote/random?author=${charEndpoint.name}`;
+const quoteEndpoint = `https://www.breakingbadapi.com/api/quote/random?author=Skyler+White`;
 
-getInfo.addEventListener("click", fetInfo); //bitchボタン押したらfetchinfo関数が呼ばれる
+let chars = [];
+let quotes = [];
+getInfo.addEventListener("click", fetchInfo); //bitchボタン押したらfetchinfo関数が呼ばれる
 
 // const resQuote = await fetch(quoteEndpoint);
 // const quotes = await resQuote.json();
 
-// async function fetchChar() {
-function fetInfo() {
+// async function fetchInfo() {
+function fetchInfo() {
   //   Response オブジェクトから JSON の本文の内容を抽出するには、 json() メソッドを使用
-  //データの操作
-  // const res = await fetch(charEndpoint);
-  // const chars = await res.json();
 
-  // // async function fetchQuote() {
-  //   const res2 = await fetch(quoteEndpoint);
-  //   const quotes = await res.clone().json();
-  // }
+  //データの操作
+  //📝1: using await twice (it was allowed to use only once)=================================================================================
+  // const res1 = await fetch(charEndpoint);
+  // const chars = await res1.json();
+
+  // console.log(res1);
+
+  // const res2 = await fetch(quoteEndpoint);
+  // const quotes = await res2.json();
+  // console.log(res2);
 
   //↑got an error of "Failed to execute 'json' on 'Response': body stream already read"
 
-  Promise.all([fetch(charEndpoint), fetch(quoteEndpoint)])
-    .then(function (responses) {
-      // Get a JSON object from each of the responses
-      return Promise.all(
-        responses.map(function (response) {
-          return response.json();
-        })
-      );
-    })
-    .then(function (data) {
-      // Log the data to the console
-      // You would do something with both sets of data here
+  //📝2: promise.all ====================================================================================
+  // Promise.all([fetch(charEndpoint), fetch(quoteEndpoint)])
+  //   .then(function (responses) {
+  //     // Get a JSON object from each of the responses
+  //     return Promise.all(
+  //       responses.map(function (response) {
+  //         return response.json();
+  //       })
+  //     );
+  //   })
+  //   .then(function (data) {
+  //     // Log the data to the console
+  //     // You would do something with both sets of data here
 
-      const response = function () {
-        const info = {
-          name: data.name,
-          nickname: data.nickname,
-          // img: charEndpoint.img,
-          quote: quoteEndpoint,
-        };
-      };
-      console.log(data);
-    })
-    .catch(function (error) {
-      // if there's an error, log it
-      console.log(error);
-    });
+  //     // const response = function () {
+  //     //   const info = {
+  //     //     name: data.name,
+  //     //     nickname: data.nickname,
+  //     //     // img: charEndpoint.img,
+  //     //     quote: quoteEndpoint,
+  //     //   };
+  //     // };
+  //     console.log(data);
+  //   })
+  //   .catch(function (error) {
+  //     // if there's an error, log it
+  //     console.log(error);
+  //   });
+  //📝3;promise.all  ====================================================================================
 
-  // const responseInfo = {
-  //   name: data.name,
-  //   nickname: data.nickname,
-  //   // img: charEndpoint.img,
-  //   quote: quoteEndpoint,
-  // };
+  // const fetchReq1 = fetch(charEndpoint).then((res1) => res1.json());
+  // const fetchReq2 = fetch(quoteEndpoint).then((res2) => res2.json());
+
+  // const allInfo = Promise.all([fetchReq1, fetchReq2]);
+
+  // console.log(fetchReq1);
+  
+  //📝4;then ====================================================================================
+  const charInfo = fetch(charEndpoint);
+  charInfo.then((res) => res.json())
+  .then((data) => (chars = data));
+
+  console.log(charInfo); //promise: pending?
+
+  const quoteInfo = fetch(quoteEndpoint)
+    .then((res2) => res2.json())
+    .then((data2) => (quotes = data2));
+
+  console.log(quoteInfo);
+
+  const obj = {
+    name: data.name,
+    nickname: data.nickname,
+    // img: charInfo.img,
+    quote: data2.quote,
+  };
+
+  console.log(obj);
+  // console.log(obj);  -> undefined
 
   //DOM操作
-  //characters全部を出力するならforEach使えばいいと思う
-  lists.textContent = ""; //都度情報をクリアに
-  // responseInfo.forEach(function (info) {
-  Object.keys(response.info).forEach((info) => {
-    const h2 = document.createElement("h2");
-    const name = document.createElement("li");
-    const nickname = document.createElement("li");
-    const pic = document.createElement("img");
-    const quate = document.createElement("p");
-    h2.classList.add("h2");
-    name.classList.add("li");
-    nickname.classList.add("li");
-    h2.textContent = "Nickname";
-    name.textContent = info.name;
-    nickname.textContent = info.nickname;
-    quate.textContent = info.quate;
-    // pic.setAttribute("src", `${responseInfo.img}`);
+  // //characters全部を出力するならforEach使えばいいと思う
+  // lists.textContent = ""; //都度情報をクリアに
+  // // responseInfo.forEach(function (info) {
+  // Object.keys(response.info).forEach((info) => {
+  //   const h2 = document.createElement("h2");
+  //   const name = document.createElement("li");
+  //   const nickname = document.createElement("li");
+  //   const pic = document.createElement("img");
+  //   const quate = document.createElement("p");
+  //   h2.classList.add("h2");
+  //   name.classList.add("li");
+  //   nickname.classList.add("li");
+  //   h2.textContent = "Nickname";
+  //   name.textContent = info.name;
+  //   nickname.textContent = info.nickname;
+  //   quate.textContent = info.quate;
+  //   // pic.setAttribute("src", `${responseInfo.img}`);
 
-    lists.appendChild(name);
-    lists.appendChild(h2);
-    lists.appendChild(nickname);
-    lists.appendChild(pic);
-  });
+  //   lists.appendChild(name);
+  //   lists.appendChild(h2);
+  //   lists.appendChild(nickname);
+  //   lists.appendChild(pic);
+  // });
 
   //もしcharacterのnameとquoteのautherが一致したら、quoteEndpointをfetchさせる
 }
