@@ -29,44 +29,8 @@ function fetchInfo() {
 
   //↑got an error of "Failed to execute 'json' on 'Response': body stream already read"
 
-  //📝2: promise.all ====================================================================================
-  // Promise.all([fetch(charEndpoint), fetch(quoteEndpoint)])
-  //   .then(function (responses) {
-  //     // Get a JSON object from each of the responses
-  //     return Promise.all(
-  //       responses.map(function (response) {
-  //         return response.json();
-  //       })
-  //     );
-  //   })
-  //   .then(function (data) {
-  //     // Log the data to the console
-  //     // You would do something with both sets of data here
-
-  //     // const response = function () {
-  //     //   const info = {
-  //     //     name: data.name,
-  //     //     nickname: data.nickname,
-  //     //     // img: charEndpoint.img,
-  //     //     quote: quoteEndpoint,
-  //     //   };
-  //     // };
-  //     console.log(data);
-  //   })
-  //   .catch(function (error) {
-  //     // if there's an error, log it
-  //     console.log(error);
-  //   });
-  //📝3;promise.all  ====================================================================================
-
-  // const fetchReq1 = fetch(charEndpoint).then((res1) => res1.json());
-  // const fetchReq2 = fetch(quoteEndpoint).then((res2) => res2.json());
-
-  // const allInfo = Promise.all([fetchReq1, fetchReq2]);
-
-  // console.log(fetchReq1);
   
-  //📝4;then ====================================================================================
+  //📝then ====================================================================================
   // const charInfo = fetch(charEndpoint);
   // charInfo.then((res) => res.json())
   // .then((data) => (chars = data));
@@ -138,6 +102,5 @@ function fetchInfo() {
 
 //   lists.appendChild(name);
 //   lists.appendChild(h2);
-//   lists.appendChild(nickname);
-//   lists.appendChild(pic);
-// })
+
+ 
