@@ -4,14 +4,25 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css"> -->
     <link rel="stylesheet" href="styles.css" />
     <title>Breaking Bad API</title>
   </head>
   <body>
-    <h1>Breaking Bad API</h1>
-    <!-- get the caracter information -->
-    <button class="get_info">Bitch!</button>
-    <ul id="lists"></ul>
+    <header>
+      <img src="1200px-Breaking_Bad_logo.svg.png" class="logo" />
+    </header>
+    <div class="search_area">
+      <input type="text" class="search" placeholder="Say my name" />
+      <p>or</p>
+      <button class="get_info">Get random character</button>
+    </div>
+    <div class="fetched_info">
+      <div class="info_details">
+    
+        <ul id="lists"></ul>
+      </div>
+    </div>
     <script src="main.js"></script>
   </body>
 </html>

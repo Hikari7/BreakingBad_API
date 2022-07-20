@@ -1,12 +1,81 @@
+//common
+@mixin center {
+  justify-content: space-between;
+  margin: 0 auto;
+  text-align: center;
+}
+
+html {
+  min-height: 100%;
+}
+
 body {
-  background-color: rgb(0, 66, 0);
+  background: linear-gradient(#093009, #29773e);
+}
+
+
+p,
+.h2 {
+  @include center();
+  color: whitesmoke;
+}
+
+//Header
+
+.logo {
+  @include center();
+  display: block;
+  width: 30%;
+  height: 30%;
+  margin: 56px auto;
+}
+
+//body
+
+.search_area {
+  @include center();
+  margin-top: 16px;
+  max-width: 80%;
+  padding: 24px;
+  // outline: solid pink 2px;
+}
+
+.search {
+  margin: 8px auto;
+  display: inline-block;
+  padding: 16px;
+  width: 300px;
+  background-color: white;
+  background-image: url("searchicon.png");
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  border-radius: 8px;
+}
+
+.get_info{
+  margin-top: 16px;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.get_info:hover {
+  opacity: .5;
+}
+
+.pic {
+  max-width: 50%;
+  min-width: 50%;
+}
+
+.fetched_info {
+  @include center();
 }
 
 .li,
-.ul {
+.lists {
+  @include center();
   list-style: none;
+  display: inline-block;
+
 }
 
-.h2 {
-  color: whitesmoke;
-}
