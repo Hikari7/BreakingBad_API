@@ -6,7 +6,7 @@ const quoteEndpoint = `https://www.breakingbadapi.com/api/quote/random?author=Sk
 
 let chars = [];
 let quotes = [];
-getInfo.addEventListener("click", fetchInfo); //bitchボタン押したらfetchinfo関数が呼ばれる
+getInfo.addEventListener("click", ()=> fetchInfo); //bitchボタン押したらfetchinfo関数が呼ばれる
 
 // const resQuote = await fetch(quoteEndpoint);
 // const quotes = await resQuote.json();
@@ -18,14 +18,14 @@ function fetchInfo() {
   //✅manuplate datas
 
   //📝1: using await twice (it was allowed to use only once)=================================================================================
-  // const res1 = await fetch(charEndpoint);
-  // const chars = await res1.json();
+  const res1 = await fetch(charEndpoint);
+  const chars = await res1.json();
 
-  // console.log(res1);
+  console.log(res1);
 
-  // const res2 = await fetch(quoteEndpoint);
-  // const quotes = await res2.json();
-  // console.log(res2);
+  const res2 = await fetch(quoteEndpoint);
+  const quotes = await res2.json();
+  console.log(res2);
 
   //↑got an error of "Failed to execute 'json' on 'Response': body stream already read"
 
@@ -67,26 +67,26 @@ function fetchInfo() {
   // console.log(fetchReq1);
   
   //📝4;then ====================================================================================
-  const charInfo = fetch(charEndpoint);
-  charInfo.then((res) => res.json())
-  .then((data) => (chars = data));
+  // const charInfo = fetch(charEndpoint);
+  // charInfo.then((res) => res.json())
+  // .then((data) => (chars = data));
 
-  console.log(charInfo); //promise: pending?
+  // console.log(charInfo); //promise: pending?
 
-  const quoteInfo = fetch(quoteEndpoint)
-    .then((res2) => res2.json())
-    .then((data2) => (quotes = data2));
+  // const quoteInfo = fetch(quoteEndpoint)
+  //   .then((res2) => res2.json())
+  //   .then((data2) => (quotes = data2));
 
-  console.log(quoteInfo);
+  // console.log(quoteInfo);
 
-  const obj = {
-    name: data.name,
-    nickname: data.nickname,
-    // img: charInfo.img,
-    quote: data2.quote
-  };
+  // const obj = {
+  //   name: data.name,
+  //   nickname: data.nickname,
+  //   // img: charInfo.img,
+  //   quote: data2.quote
+  // };
 
-  console.log(obj);
+  // console.log(obj);
   // console.log(obj);  -> undefined
 
   //DOM操作
