@@ -55,15 +55,20 @@ p,
   opacity: 0.5;
 }
 
-.pic {
-  max-width: 50%;
-  min-width: 50%;
+.char_pic {
+  width: 50%;
+  height: 50%;
+}
+
+.char_pic hidden {
+  display: none;
 }
 
 .fetched_info {
   justify-content: space-between;
   margin: 0 auto;
   text-align: center;
+  display: flex;
 }
 
 .li,
