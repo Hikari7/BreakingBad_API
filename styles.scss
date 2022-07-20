@@ -62,23 +62,27 @@ p,
 }
 
 .char_pic {
-  width: 50%;
-  // max-width: 100%;
-  height: 50%;
+  // width: 100%;
+  height: 300px;
 }
 
-.char_pic hidden {
-  display: none;
-}
+// .hidden {
+//   display: none;
+// }
 
 .fetched_info {
   @include center();
   display: flex;
+  width: 50%;
 }
 
-.li,
+.list,
 .lists {
   @include center();
   list-style: none;
-  display: inline-block;
+  display: block;
+}
+
+.info_details {
+  width: 50%;
 }

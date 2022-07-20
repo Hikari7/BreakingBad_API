@@ -56,12 +56,7 @@ p,
 }
 
 .char_pic {
-  width: 50%;
-  height: 50%;
-}
-
-.char_pic hidden {
-  display: none;
+  height: 300px;
 }
 
 .fetched_info {
@@ -69,13 +64,18 @@ p,
   margin: 0 auto;
   text-align: center;
   display: flex;
+  width: 50%;
 }
 
-.li,
+.list,
 .lists {
   justify-content: space-between;
   margin: 0 auto;
   text-align: center;
   list-style: none;
-  display: inline-block;
+  display: block;
+}
+
+.info_details {
+  width: 50%;
 }/*# sourceMappingURL=styles.css.map */
