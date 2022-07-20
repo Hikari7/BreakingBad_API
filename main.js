@@ -15,7 +15,8 @@ getInfo.addEventListener("click", fetchInfo); //bitchボタン押したらfetchi
 function fetchInfo() {
   //   Response オブジェクトから JSON の本文の内容を抽出するには、 json() メソッドを使用
 
-  //データの操作
+  //✅manuplate datas
+
   //📝1: using await twice (it was allowed to use only once)=================================================================================
   // const res1 = await fetch(charEndpoint);
   // const chars = await res1.json();
@@ -82,7 +83,7 @@ function fetchInfo() {
     name: data.name,
     nickname: data.nickname,
     // img: charInfo.img,
-    quote: data2.quote,
+    quote: data2.quote
   };
 
   console.log(obj);
