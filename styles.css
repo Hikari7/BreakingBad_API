@@ -4,6 +4,7 @@ html {
 
 body {
   background: linear-gradient(#093009, #29773e);
+  font-family: "Roboto", sans-serif;
 }
 
 p,
@@ -19,8 +20,8 @@ p,
   margin: 0 auto;
   text-align: center;
   display: block;
-  width: 30%;
-  height: 30%;
+  width: 50%;
+  height: 50%;
   margin: 56px auto;
 }
 
@@ -34,14 +35,13 @@ p,
 }
 
 .search {
+  justify-content: space-between;
+  margin: 0 auto;
+  text-align: center;
   margin: 8px auto;
-  display: inline-block;
+  display: block;
   padding: 16px;
-  width: 300px;
   background-color: white;
-  background-image: url("searchicon.png");
-  background-position: 10px 10px;
-  background-repeat: no-repeat;
   border-radius: 8px;
 }
 
@@ -55,25 +55,41 @@ p,
   opacity: 0.5;
 }
 
+.pic_wrap {
+  flex-basis: 100%;
+}
+
 .char_pic {
-  height: 300px;
+  justify-content: space-between;
+  margin: 0 auto;
+  text-align: center;
+  width: calc(100% - 24px);
+  height: 400px;
 }
 
 .fetched_info {
   justify-content: space-between;
   margin: 0 auto;
   text-align: center;
-  display: flex;
-  width: 50%;
+  margin-top: 36px;
+  min-height: 500px;
+  width: 80%;
 }
 
-.list,
-.lists {
+#lists {
+  outline: 2px solid skyblue;
   justify-content: space-between;
   margin: 0 auto;
   text-align: center;
   list-style: none;
-  display: block;
+  min-height: 200px;
+}
+
+.list {
+  justify-content: space-between;
+  margin: 0 auto;
+  text-align: center;
+  list-style: none;
 }
 
 .info_details {
