@@ -97,6 +97,8 @@ li {
     width: 32px;
     height: 32px;
     margin: 24px 32px 0 0;
+    background-color: #0a0a23;
+    color: #fff;
   }
 }
 
@@ -104,7 +106,7 @@ li {
   @include center();
   list-style: none;
   position: absolute;
-  top: 400px;
+  top: 500px;
   bottom: 0;
   left: 0;
   right: 0;
@@ -113,6 +115,7 @@ li {
   background-color: white;
   transition: top 1s;
   display: flex;
+  display: inline-block;
 
   &.lists-active {
     top: 300px;
@@ -127,17 +130,16 @@ li {
     font-size: 0.9em !important;
   }
 }
+
 .list-name {
   display: flex;
-  // border-bottom: 1px solid rgb(103, 101, 101);
-  font-size: 0.9em !important;
+  font-size: 16px !important;
 
   li {
     // color: red;
-    
   }
 
-  p{
+  p {
     color: blue;
   }
 }
