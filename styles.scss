@@ -14,7 +14,14 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
-p,
+ul {
+  display: flex;
+}
+li {
+  list-style: none;
+}
+
+.or,
 .h2 {
   @include center();
   color: whitesmoke;
@@ -66,28 +73,23 @@ p,
 
 .char_pic {
   @include center();
-  // width: 300px;
-  width: calc(100% - 24px);
+  width: 100%;
   height: 400px;
 }
-
-// .hidden {
-//   display: none;
-// }
 
 .fetched_info {
   @include center();
   margin-top: 36px;
   margin-bottom: 120px;
-  // min-height: 500px;
-  width: 80%;
+  width: 70%;
   position: relative;
   overflow: hidden;
   min-height: auto;
+  // outline: 1px solid black;
   img {
-    max-height: 400px;
+    max-height: 500px;
   }
-  // outline: 2px solid pink;
+
   .button-toogle {
     position: absolute;
     right: 0;
@@ -99,44 +101,48 @@ p,
 }
 
 .lists {
-  outline: 2px solid skyblue;
   @include center();
   list-style: none;
-  min-height: auto;
   position: absolute;
-  top: 96px;
+  top: 400px;
   bottom: 0;
   left: 0;
   right: 0;
   width: 100%;
   height: 300px;
   background-color: white;
-  max-height: 300px;
   transition: top 1s;
-  h2 {
-    color: black;
+  display: flex;
+
+  &.lists-active {
+    top: 300px;
+    transition: top 1s;
+    display: inline-block;
+    height: auto;
   }
-  .list-name {
-    // border: 1px solid black;
+
+  &.list_p {
+    color: black;
+    border-bottom: 1px solid black;
     font-size: 0.9em !important;
   }
-  .list-nickname {
-    // border: 1px solid black;
-  }
-  .list-bday {
-    // border: 1px solid black;
-  }
 }
-.lists-active {
-  background-color: red;
-  top: 250px;
-  transition: top 1s;
+.list-name {
+  display: flex;
+  // border-bottom: 1px solid rgb(103, 101, 101);
+  font-size: 0.9em !important;
+
+  li {
+    // color: red;
+    
+  }
+
+  p{
+    color: blue;
+  }
 }
 
 .list {
-  @include center();
   list-style: none;
-}
-.info_details {
-  width: 50%;
+  margin: 0;
 }
