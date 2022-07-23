@@ -81,10 +81,11 @@ li {
   text-align: center;
   margin-top: 36px;
   margin-bottom: 120px;
-  width: 70%;
+  width: 50%;
   position: relative;
   overflow: hidden;
-  min-height: auto;
+  min-height: 300px;
+  height: auto;
 }
 .fetched_info img {
   max-height: 500px;
@@ -112,15 +113,16 @@ li {
   right: 0;
   width: 100%;
   height: 300px;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.839);
   transition: top 1s;
   display: flex;
   display: inline-block;
 }
 .lists.lists-active {
-  top: 300px;
+  top: 0px;
   transition: top 1s;
   display: inline-block;
+  padding: 6px;
   height: auto;
 }
 .lists.list_p {
@@ -133,8 +135,19 @@ li {
   display: flex;
   font-size: 16px !important;
 }
+.list-name li {
+  padding-top: 6px;
+}
+.list-name .list-quote,
+.list-name .list-occupation {
+  display: block;
+  overflow-wrap: break-word;
+  text-align: left;
+  width: 100%;
+}
 .list-name p {
-  color: blue;
+  padding-top: 6px;
+  color: #29773e;
 }
 
 .list {

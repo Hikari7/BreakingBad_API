@@ -11,19 +11,16 @@ const dataFetching = async () => {
   //fetch character data
   const response = await axios(charEndpoint);
   //await: 非同期実行するメソッドの完了を待つ,axiousは簡単にfetchできるコンポーネント
-
   //only retrieve the data part of the response (due to axios)
   const charData = response.data[0];
   //extract the character's name from the object and assign to a variable
   let charaName = charData.name.replaceAll(" ", "+");
   //fetch the quote with the character's name as author's value　　　//autherと結合
   let charaQuote = await axios(quoteEndpoint + charaName); //url繋いでるだけ
-
   //insert a property called `quote` in charData object
   //if charaQuote is undefined (character has no quote), assign an empty object
   charData.quote = charaQuote.data[0] || {};
   console.log(charData.quote);
-
   //return the character object with quote property added
   console.log(charData.quote); //[object, object]
   return charData;
@@ -55,6 +52,8 @@ function clickHandler() {
     const head_occupation = document.createElement("p");
     const head_quote = document.createElement("p");
 
+
+
     ul_name.classList.add("list-name");
     ul_nickname.classList.add("list-name");
     ul_birthday.classList.add("list-name");
@@ -67,13 +66,16 @@ function clickHandler() {
     head_occupation.classList.add("list");
     head_quote.classList.add("list");
 
-    head_name.textContent = "Name";
-    head_nickname.textContent = "Nickname";
-    head_birthday.textContent = "birthday";
-    head_nickname.textContent = "Nickname";
-    head_birthday.textContent = "Birthday";
-    head_occupation.textContent = "Occupation";
-    head_quote.textContent = "Quote";
+    head_name.textContent = "Name: ";
+    head_nickname.textContent = "Nickname: ";
+    head_birthday.textContent = "birthday: ";
+    head_nickname.textContent = "Nickname: ";
+    head_birthday.textContent = "Birthday: ";
+    head_occupation.textContent = "Occupation: ";
+
+
+
+    head_quote.textContent = "Quote: ";
 
     //Fetchで取ってきた情報
     const name = document.createElement("li");
@@ -106,9 +108,16 @@ function clickHandler() {
     nickname.textContent = response.nickname;
     birthday.textContent = response.birthday;
     occupation.textContent = response.occupation;
-    quote.textContent = response.quote?.quote; //[object object]
     pic.setAttribute("src", `${response.img}`);
     lists.classList.add("lists");
+
+
+    if(response.quote.quote === {}){
+      quote.textContent = "Invalid option!";
+    } else {
+      quote.textContent = response.quote?.quote;
+    }
+    // quote.textContent = response.quote?.quote; //[object object]
 
     ul_name.appendChild(head_name);
     ul_nickname.appendChild(head_nickname);
