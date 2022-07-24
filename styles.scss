@@ -5,6 +5,13 @@
   text-align: center;
 }
 
+$desktop: 840px;
+@mixin desktop {
+  @media (min-width: #{$desktop}) {
+    @content;
+  }
+}
+
 html {
   min-height: 100%;
   background: linear-gradient(
@@ -61,7 +68,6 @@ li {
   display: block;
   padding: 16px;
   background-color: white;
-
   border-radius: 8px;
 }
 
@@ -78,13 +84,19 @@ li {
 
 .pic_wrap {
   flex-basis: 100%;
-}
 
-.char_pic {
+  // .char_pic {
   @include center();
   width: 100%;
-  height: 400px;
+  height: 35vh;
   border-radius: 8px;
+
+  @include desktop() {
+    width: 100%;
+    height: 60vh;
+    border-radius: 8px;
+    // }
+  }
 }
 
 .fetched_info {
@@ -103,15 +115,15 @@ li {
 
   .button-toogle {
     position: absolute;
-    right: 0;
+    right: -12px;
     top: 0;
     width: 32px;
     height: 32px;
     margin: 24px 32px 0 0;
-    background-color: #0a0a23;
     color: #fff;
     cursor: pointer;
     border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.5);
   }
 }
 
@@ -129,26 +141,44 @@ li {
   transition: top 1.5s;
   display: flex;
   display: inline-block;
-  padding: 36px;
+  overflow-wrap: break-word;
+  border-radius: 8px;
+  padding-top: 36px;
+  overflow: scroll;
+  @include desktop() {
+    padding: 36px;
+  }
 
   &.lists-active {
     top: 0px;
-    transition: top 1s;
+    transition: top 1.5s;
     display: inline-block;
-    padding: 36px;
+    // padding: 36px;
+    width: 100%;
     height: auto;
+    overflow-wrap: break-word;
+    @include desktop() {
+      width: 83%;
+    }
   }
 
   &.list_p {
     color: black;
     border-bottom: 1px solid black;
     font-size: 16px !important;
+    overflow-wrap: break-word;
+    font-size: 8px;
+
+    @include desktop() {
+      font-size: 16px !important;
+    }
   }
 }
 
 .list-name {
   display: flex;
   font-size: 16px !important;
+  width: 80%;
 
   li {
     padding-top: 8px;
@@ -160,6 +190,14 @@ li {
     overflow-wrap: break-word;
     text-align: left;
     width: 100%;
+    margin-left: 8px;
+  }
+  
+  .list,
+  .list-birthday,
+  .list-nickname {
+    text-align: left;
+    margin-left: 8px;
   }
 
   p {
