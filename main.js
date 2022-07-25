@@ -3,7 +3,6 @@ const fetched_info = document.querySelector(".fetched_info");
 const searchInfo = document.querySelector(".search");
 
 searchInfo.addEventListener("change", () => showChar());
-// searchInfo.addEventListener("keyup", () => showChar());
 
 //filter the data which is searched
 const searchData = async () => {
@@ -11,110 +10,41 @@ const searchData = async () => {
     "https://www.breakingbadapi.com/api/characters"
   ); //全キャラクター用のAPI
   const resData = allChar.data; //全キャラクターのデータを取ってくる
-
+console.log(resData);
   let putValue = searchInfo.value;
-  let text = putValue.toLowerCase(); //大文字、小文字で検索可能
+  let text = putValue.toLowerCase(); //大文字、小文字で検索可能  //
+  // console.log(text);
   let searchResult = resData.filter(
     (char) => char.name.includes(text) //keyupした値がキャラクターの名前に含まれているかフィルター
   );
-  showChar(searchResult);
 
-  // console.log();
   // console.log(searchResult); //keyupしたデータが返ってくる
+  // showChar(searchResult);
   return searchResult;
 };
 
 function showChar() {
-  searchData().then((response) => {
-    const pic = document.createElement("img");
-    pic.classList.add("char_pic");
-    pic.classList.add("pic_wrap");
-
-    //スタイリングのためのdivとul
-    const lists = document.createElement("div"); //infoの方のdiv
-    // const list = document.createElement("ul"); //infoの方のdiv
-    const ul_name = document.createElement("div"); //infoのdivの中のul
-    const ul_nickname = document.createElement("div"); //infoのdivの中のul
-    const ul_birthday = document.createElement("div"); //infoのdivの中のul
-    const ul_occupation = document.createElement("div"); //infoのdivの中のul
-
-    //infoの見出し
-    const head_name = document.createElement("p"); //p作る //ulの子供
-    const head_nickname = document.createElement("p");
-    const head_birthday = document.createElement("p");
-    const head_occupation = document.createElement("p");
-    const head_quote = document.createElement("p");
-
-    ul_name.classList.add("list-name");
-    ul_nickname.classList.add("list-name");
-    ul_birthday.classList.add("list-name");
-    ul_occupation.classList.add("list-name");
-
-    head_name.classList.add("list"); //ulの子供
-    head_nickname.classList.add("list");
-    head_birthday.classList.add("list");
-    head_occupation.classList.add("list");
-    head_quote.classList.add("list");
-
-    head_name.textContent = "Name: ";
-    head_nickname.textContent = "Nickname: ";
-    head_birthday.textContent = "birthday: ";
-    head_nickname.textContent = "Nickname: ";
-    head_birthday.textContent = "Birthday: ";
-    head_occupation.textContent = "Occupation: ";
-
-    //Fetchで取ってきた情報
-    const name = document.createElement("li");
-    const nickname = document.createElement("li");
-    const birthday = document.createElement("li");
-    const occupation = document.createElement("li");
-
-    const buttonToggle = document.createElement("button");
-
-    buttonToggle.addEventListener("click", (index) => {
-      isClicked = !isClicked;
-      if (isClicked) {
-        // console.log("Hey");
-        lists.classList.remove("lists-active");
-      } else {
-        // console.log("No Hey");
-        lists.classList.add("lists-active");
-      }
+  searchData().then((searchResult) => {
+    // console.log(searchResult);
+    const searChar = searchResult.map((char) => {
+      // const name = document.createElement("li");
+      // name.classList.add("list");
+      
+      console.log(char.name);             //2文字以上打つとしぬ
+      // name.textContent = char.name;
+      // const desplayInfo = char.
+      // return `
+      //           <li> 
+      //               <span class="name">${}</span>
+                   
+      //           </li> 
+      //           `;
     });
-
-    name.classList.add("list");
-    nickname.classList.add("list-nickname");
-    birthday.classList.add("list-bday");
-    occupation.classList.add("list-occupation");
-
-    buttonToggle.classList.add("button-toogle");
-
-    name.textContent = response.name;
-    nickname.textContent = response.nickname;
-    birthday.textContent = response.birthday;
-    occupation.textContent = response.occupation;
-    pic.setAttribute("src", `${response.img}`);
-    lists.classList.add("lists");
-
-    // quote.textContent = response.quote?.quote; //[object object]
-
-    ul_name.appendChild(head_name);
-    ul_nickname.appendChild(head_nickname);
-    ul_birthday.appendChild(head_birthday);
-    ul_occupation.appendChild(head_occupation);
-
-    ul_name.appendChild(name);
-    ul_nickname.appendChild(nickname);
-    ul_birthday.appendChild(birthday);
-    ul_occupation.appendChild(occupation);
-
-    fetched_info.appendChild(pic);
-    fetched_info.appendChild(lists);
-    fetched_info.appendChild(buttonToggle);
-    lists.appendChild(ul_name);
-    lists.appendChild(ul_nickname);
-    lists.appendChild(ul_birthday);
-    lists.appendChild(ul_occupation);
+    // console.log(seaChar);
+    // const pic = document.createElement("img");
+    // pic.classList.add("char_pic");
+    // pic.classList.add("pic_wrap");
+    // console.log(pic);
   });
 }
 
@@ -161,6 +91,7 @@ function clickHandler() {
     let isClicked = false;
     fetched_info.textContent = "";
 
+    console.log(response);
     //DOM操作
     const pic = document.createElement("img");
     pic.classList.add("char_pic");
@@ -168,7 +99,7 @@ function clickHandler() {
 
     //スタイリングのためのdivとul
     const lists = document.createElement("div"); //infoの方のdiv
-    // const list = document.createElement("ul"); //infoの方のdiv
+    const list = document.createElement("ul"); //infoの方のdiv
     const ul_name = document.createElement("div"); //infoのdivの中のul
     const ul_nickname = document.createElement("div"); //infoのdivの中のul
     const ul_birthday = document.createElement("div"); //infoのdivの中のul
