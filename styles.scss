@@ -88,7 +88,7 @@ li {
   // .char_pic {
   @include center();
   width: 100%;
-  height: 35vh;
+  // height: 35vh;
   border-radius: 8px;
 
   @include desktop() {
