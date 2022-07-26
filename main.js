@@ -4,7 +4,7 @@ const searchInfo = document.querySelector(".search");
 const lists = document.createElement("div"); //infoの方のdiv
 const list = document.createElement("ul"); //infoの方のdiv
 
-searchInfo.addEventListener("keyup", () => showChar());
+searchInfo.addEventListener("change", () => showChar());
 
 //filter the data which is searched
 const searchData = async () => {
@@ -18,17 +18,19 @@ const searchData = async () => {
   let searchResult = resData.filter(
     (char) => char.name.includes(text) //keyupした値がキャラクターの名前に含まれているかフィルター
   );
+
   // console.log(searchResult); //keyupしたデータが返ってくる
-  // showChar(searchResult);
   return searchResult;
 };
 
 function showChar() {
   searchData().then((searchResult) => {
     const searChar = searchResult.map((char) => {
+      // fetched_info.textContent = "";
+      console.log(char.name);
       const pic = document.createElement("img");
-      // pic.classList.add("char_pic");
-      // pic.classList.add("pic_wrap");
+      pic.classList.add("char_pic");
+      pic.classList.add("pic_wrap");
 
       // pic.setAttribute("src", `${char.img}`);
       // fetched_info.appendChild(pic);
@@ -82,13 +84,13 @@ function showChar() {
       const quote = document.createElement("li");
       const buttonToggle = document.createElement("button");
 
-      buttonToggle.addEventListener("click", (index) => {
+      buttonToggle.addEventListener("click", () => {
         isHoverd = !isHoverd;
         if (isHoverd) {
-          // console.log("Hey");
+          console.log("Hey");
           lists.classList.remove("lists-active");
         } else {
-          // console.log("No Hey");
+          console.log("No Hey");
           lists.classList.add("lists-active");
         }
       });
@@ -99,7 +101,7 @@ function showChar() {
       occupation.classList.add("list-occupation");
       quote.classList.add("list-quote");
 
-      // buttonToggle.classList.add("button-toogle");
+      buttonToggle.classList.add("button-toogle");
 
       name.textContent = char.name;
       nickname.textContent = char.nickname;
@@ -107,8 +109,6 @@ function showChar() {
       occupation.textContent = char.occupation;
       pic.setAttribute("src", `${char.img}`);
       lists.classList.add("lists");
-
-    
 
       ul_name.appendChild(head_name);
       ul_nickname.appendChild(head_nickname);
@@ -124,9 +124,8 @@ function showChar() {
 
       fetched_info.appendChild(pic);
       fetched_info.appendChild(lists);
-      // fetched_info.appendChild(buttonToggle);
-      // lists.appendChild(pic);
-      // lists.appendChild(lists);
+      fetched_info.appendChild(buttonToggle);
+
       lists.appendChild(ul_name);
       lists.appendChild(ul_nickname);
       lists.appendChild(ul_birthday);
