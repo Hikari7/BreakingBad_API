@@ -30,7 +30,7 @@ function showChar() {
   searchData().then((searchResult) => {
     const searChar = searchResult.map((char) => {
       // fetched_info.textContent = "";
-      console.log(char.name);
+      // console.log(char.name);
 
       const pic = document.createElement("img");
       pic.classList.add("pic_wrap");
@@ -69,8 +69,6 @@ function showChar() {
       head_birthday.textContent = "Birthday: ";
       head_occupation.textContent = "Occupation: ";
 
-      head_quote.textContent = "Quote: ";
-
       //Fetchで取ってきた情報
       const name = document.createElement("li");
       const nickname = document.createElement("li");
@@ -94,10 +92,10 @@ function showChar() {
       nickname.classList.add("list-nickname");
       birthday.classList.add("list-bday");
       occupation.classList.add("list-occupation");
-      quote.classList.add("list-quote");
 
       buttonToggle.classList.add("button-toogle");
 
+      console.log(char.quote?.quote);
       name.textContent = char.name;
       nickname.textContent = char.nickname;
       birthday.textContent = char.birthday;
@@ -105,17 +103,21 @@ function showChar() {
       pic.setAttribute("src", `${char.img}`);
       lists.classList.add("lists");
 
+      if (char.birthday == null) {
+        birthday.textContent = "Invalid option!";
+      } else {
+        birthday.textContent = char.birthday;
+      }
+
       ul_name.appendChild(head_name);
       ul_nickname.appendChild(head_nickname);
       ul_birthday.appendChild(head_birthday);
       ul_occupation.appendChild(head_occupation);
-      ul_quote.appendChild(head_quote);
 
       ul_name.appendChild(name);
       ul_nickname.appendChild(nickname);
       ul_birthday.appendChild(birthday);
       ul_occupation.appendChild(occupation);
-      ul_quote.appendChild(quote);
 
       fetched_info.appendChild(pic);
       fetched_info.appendChild(lists);
@@ -127,7 +129,7 @@ function showChar() {
       lists.appendChild(ul_nickname);
       lists.appendChild(ul_birthday);
       lists.appendChild(ul_occupation);
-      lists.appendChild(ul_quote);
+      
     });
   });
 }
@@ -175,7 +177,7 @@ function clickHandler() {
     let isClicked = false;
     fetched_info.textContent = "";
 
-    console.log(response);
+    // console.log(response);
     //DOM操作
     const pic = document.createElement("img");
     pic.classList.add("char_pic");
@@ -252,12 +254,19 @@ function clickHandler() {
     pic.setAttribute("src", `${response.img}`);
     lists.classList.add("lists");
 
-    if (response.quote.quote === {}) {
+    // console.log(response.quote?.quote);
+
+    if (response.quote?.quote === undefined) {
       quote.textContent = "Invalid option!";
     } else {
       quote.textContent = response.quote?.quote;
     }
-    // quote.textContent = response.quote?.quote; //[object object]
+
+    if (response.birthday == null) {
+      birthday.textContent = "Invalid option!";
+    } else {
+      birthday.textContent = response.birthday;
+    }
 
     ul_name.appendChild(head_name);
     ul_nickname.appendChild(head_nickname);
@@ -274,6 +283,7 @@ function clickHandler() {
     fetched_info.appendChild(pic);
     fetched_info.appendChild(lists);
     fetched_info.appendChild(buttonToggle);
+
     lists.appendChild(ul_name);
     lists.appendChild(ul_nickname);
     lists.appendChild(ul_birthday);
