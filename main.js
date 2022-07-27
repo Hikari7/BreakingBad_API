@@ -1,11 +1,11 @@
 const getInfo = document.querySelector(".get_info");
 const fetched_info = document.querySelector(".fetched_info");
-
 const searchInfo = document.querySelector(".search");
 const lists = document.createElement("div"); //infoの方のdiv
 const list = document.createElement("ul"); //infoの方のdiv
+const wrap_name = document.querySelector(".wrap_name"); //ul_nameの親
 
-searchInfo.addEventListener("change", () => showChar());
+searchInfo.addEventListener("change", () => showChars());
 
 //filter the data which is searched
 const searchData = async () => {
@@ -13,126 +13,130 @@ const searchData = async () => {
     "https://www.breakingbadapi.com/api/characters"
   ); //全キャラクター用のAPI
   const resData = allChar.data; //全キャラクターのデータを取ってくる
-  // console.log(resData);
   let putValue = searchInfo.value;
   let text = putValue.slice(0, 1).toUpperCase() + putValue.slice(1); //make to upperCase only the first letter
   let searchResult = resData.filter(
     (char) => char.name.includes(text) //keyupした値がキャラクターの名前に含まれているかフィルター
   );
-
-  // console.log(searchResult); //keyupしたデータが返ってくる
-  return searchResult;
+  return searchResult; //changeしたデータが返ってくる
 };
 
-function showChar() {
+function showChars() {
   let isClicked = false;
   fetched_info.textContent = "";
-  searchData().then((searchResult) => {
-    const searChar = searchResult.map((char) => {
-      // fetched_info.textContent = "";
-      // console.log(char.name);
+  wrap_name.textContent = "";
 
-      const pic = document.createElement("img");
-      pic.classList.add("pic_wrap");
+  const datas = [
+    searchData().then((searchResult) => {
+      const searChar = searchResult.map((char) => {
+        const pic = document.createElement("img");
+        pic.classList.add("pic_wrap");
+        const ul_name = document.createElement("div");
+        const ul_nickname = document.createElement("div"); //infoのdivの中のdiv(ulて書いてあるけどw)
+        const ul_birthday = document.createElement("div"); //infoのdivの中のdiv
+        const ul_occupation = document.createElement("div"); //infoのdivの中のdiv
 
-      const ul_name = document.createElement("div");
-      const ul_nickname = document.createElement("div"); //infoのdivの中のdiv(ulて書いてあるけどw)
-      const ul_birthday = document.createElement("div"); //infoのdivの中のdiv
-      const ul_occupation = document.createElement("div"); //infoのdivの中のdiv
-      const ul_quote = document.createElement("div"); //infoのdivの中のdiv
+        //infoの見出し
+        const head_name = document.createElement("p"); //p作る //ulの子供
+        const head_nickname = document.createElement("p");
+        const head_birthday = document.createElement("p");
+        const head_occupation = document.createElement("p");
 
-      // const eachChar = document.createElement("div");
+        //bottun toggle====================================
+        // const buttonToggle = document.createElement("button");
+        // buttonToggle.classList.add("button-toogle");
+        // fetched_info.appendChild(buttonToggle);
+        //====================================
 
-      //infoの見出し
-      const head_name = document.createElement("p"); //p作る //ulの子供
-      const head_nickname = document.createElement("p");
-      const head_birthday = document.createElement("p");
-      const head_occupation = document.createElement("p");
-      const head_quote = document.createElement("p");
+        ul_name.classList.add("list-name");
+        ul_nickname.classList.add("list-name");
+        ul_birthday.classList.add("list-name");
+        ul_occupation.classList.add("list-name");
 
-      ul_name.classList.add("list-name");
-      ul_nickname.classList.add("list-name");
-      ul_birthday.classList.add("list-name");
-      ul_occupation.classList.add("list-name");
-      ul_quote.classList.add("list-name");
+        head_name.classList.add("list"); //ulの子供
+        head_nickname.classList.add("list");
+        head_birthday.classList.add("list");
+        head_occupation.classList.add("list");
 
-      head_name.classList.add("list"); //ulの子供
-      head_nickname.classList.add("list");
-      head_birthday.classList.add("list");
-      head_occupation.classList.add("list");
-      head_quote.classList.add("list");
+        head_name.textContent = "Name: ";
+        head_nickname.textContent = "Nickname: ";
+        head_birthday.textContent = "birthday: ";
+        head_nickname.textContent = "Nickname: ";
+        head_birthday.textContent = "Birthday: ";
+        head_occupation.textContent = "Occupation: ";
 
-      head_name.textContent = "Name: ";
-      head_nickname.textContent = "Nickname: ";
-      head_birthday.textContent = "birthday: ";
-      head_nickname.textContent = "Nickname: ";
-      head_birthday.textContent = "Birthday: ";
-      head_occupation.textContent = "Occupation: ";
+        //Fetchで取ってきた情報
+        const name = document.createElement("li");
+        const nickname = document.createElement("li");
+        const birthday = document.createElement("li");
+        const occupation = document.createElement("li");
 
-      //Fetchで取ってきた情報
-      const name = document.createElement("li");
-      const nickname = document.createElement("li");
-      const birthday = document.createElement("li");
-      const occupation = document.createElement("li");
-      const quote = document.createElement("li");
-      const buttonToggle = document.createElement("button");
+        name.classList.add("list");
+        nickname.classList.add("list-nickname");
+        birthday.classList.add("list-bday");
+        occupation.classList.add("list-occupation");
 
-      buttonToggle.addEventListener("click", () => {
-        isClicked = !isClicked;
-        if (isClicked) {
-          console.log("Hey");
-          lists.classList.remove("lists-active");
-        } else {
-          console.log("No Hey");
-          lists.classList.add("lists-active");
-        }
-      });
-
-      name.classList.add("list");
-      nickname.classList.add("list-nickname");
-      birthday.classList.add("list-bday");
-      occupation.classList.add("list-occupation");
-
-      buttonToggle.classList.add("button-toogle");
-
-      console.log(char.quote?.quote);
-      name.textContent = char.name;
-      nickname.textContent = char.nickname;
-      birthday.textContent = char.birthday;
-      occupation.textContent = char.occupation;
-      pic.setAttribute("src", `${char.img}`);
-      lists.classList.add("lists");
-
-      if (char.birthday == null) {
-        birthday.textContent = "Invalid option!";
-      } else {
+        name.textContent = char.name;
+        nickname.textContent = char.nickname;
         birthday.textContent = char.birthday;
-      }
+        occupation.textContent = char.occupation;
+        pic.setAttribute("src", `${char.img}`);
+        lists.classList.add("lists");
 
-      ul_name.appendChild(head_name);
-      ul_nickname.appendChild(head_nickname);
-      ul_birthday.appendChild(head_birthday);
-      ul_occupation.appendChild(head_occupation);
+        if (char.birthday == null) {
+          birthday.textContent = "Invalid option!";
+        } else {
+          birthday.textContent = char.birthday;
+        }
 
-      ul_name.appendChild(name);
-      ul_nickname.appendChild(nickname);
-      ul_birthday.appendChild(birthday);
-      ul_occupation.appendChild(occupation);
+        ul_name.appendChild(head_name);
+        ul_nickname.appendChild(head_nickname);
+        ul_birthday.appendChild(head_birthday);
+        ul_occupation.appendChild(head_occupation);
 
-      fetched_info.appendChild(pic);
-      fetched_info.appendChild(lists);
-      fetched_info.appendChild(buttonToggle);
+        ul_name.appendChild(name);
+        ul_nickname.appendChild(nickname);
+        ul_birthday.appendChild(birthday);
+        ul_occupation.appendChild(occupation);
 
-      // eachChar.appendChild(lists);
+        fetched_info.appendChild(pic);
+        fetched_info.appendChild(lists);
 
-      lists.appendChild(ul_name);
-      lists.appendChild(ul_nickname);
-      lists.appendChild(ul_birthday);
-      lists.appendChild(ul_occupation);
-      
-    });
-  });
+        wrap_name.appendChild(ul_name);
+        wrap_name.appendChild(ul_nickname);
+        wrap_name.appendChild(ul_birthday);
+        wrap_name.appendChild(ul_occupation);
+
+        lists.appendChild(wrap_name);
+      });
+    }),
+  ];
 }
+
+//datasを配列にしてそこからnewmapにしてforeachで１つずつ処理できんもんかね
+//(ボタン機能を各キャラクターにつけたい)
+
+let showChar = showChars();
+let data = new Map(showChar);
+console.log(data);
+
+data.forEach(function (showChars) {
+  // const buttonToggle = document.createElement("button");
+  // buttonToggle.classList.add("button-toogle");
+  // fetched_info.appendChild(buttonToggle);
+  console.log(showChars);
+  buttonToggle.addEventListener("click", () => {
+    isClicked = !isClicked;
+    if (isClicked) {
+      console.log("Hey");
+      lists.classList.remove("lists-active");
+    } else {
+      console.log("No Hey");
+      lists.classList.add("lists-active");
+    }
+  });
+});
+// }
 
 //search a character  データを返す関数
 // function searchData() {
@@ -173,19 +177,19 @@ const dataFetching = async () => {
 
 //get a random character
 function clickHandler() {
+  //クリックしたら発火
   dataFetching().then((response) => {
     let isClicked = false;
     fetched_info.textContent = "";
+    wrap_name.textContent = "";
 
-    // console.log(response);
     //DOM操作
     const pic = document.createElement("img");
     pic.classList.add("char_pic");
     pic.classList.add("pic_wrap");
 
     //スタイリングのためのdivとul
-    // const lists = document.createElement("div"); //infoの方のdiv
-    // const list = document.createElement("ul"); //infoの方のdiv
+
     const ul_name = document.createElement("div"); //infoのdivの中のul
     const ul_nickname = document.createElement("div"); //infoのdivの中のul
     const ul_birthday = document.createElement("div"); //infoのdivの中のul
@@ -217,7 +221,6 @@ function clickHandler() {
     head_nickname.textContent = "Nickname: ";
     head_birthday.textContent = "Birthday: ";
     head_occupation.textContent = "Occupation: ";
-
     head_quote.textContent = "Quote: ";
 
     //Fetchで取ってきた情報
@@ -254,8 +257,6 @@ function clickHandler() {
     pic.setAttribute("src", `${response.img}`);
     lists.classList.add("lists");
 
-    // console.log(response.quote?.quote);
-
     if (response.quote?.quote === undefined) {
       quote.textContent = "Invalid option!";
     } else {
@@ -284,10 +285,12 @@ function clickHandler() {
     fetched_info.appendChild(lists);
     fetched_info.appendChild(buttonToggle);
 
-    lists.appendChild(ul_name);
-    lists.appendChild(ul_nickname);
-    lists.appendChild(ul_birthday);
-    lists.appendChild(ul_occupation);
-    lists.appendChild(ul_quote);
+    wrap_name.appendChild(ul_name);
+    wrap_name.appendChild(ul_nickname);
+    wrap_name.appendChild(ul_birthday);
+    wrap_name.appendChild(ul_occupation);
+    wrap_name.appendChild(ul_quote);
+
+    lists.appendChild(wrap_name);
   });
 }
