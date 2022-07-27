@@ -1,5 +1,6 @@
 const getInfo = document.querySelector(".get_info");
 const fetched_info = document.querySelector(".fetched_info");
+
 const searchInfo = document.querySelector(".search");
 const lists = document.createElement("div"); //infoの方のdiv
 const list = document.createElement("ul"); //infoの方のdiv
@@ -24,29 +25,23 @@ const searchData = async () => {
 };
 
 function showChar() {
+  let isClicked = false;
+  fetched_info.textContent = "";
   searchData().then((searchResult) => {
     const searChar = searchResult.map((char) => {
       // fetched_info.textContent = "";
       console.log(char.name);
+
       const pic = document.createElement("img");
-      pic.classList.add("char_pic");
       pic.classList.add("pic_wrap");
 
-      // pic.setAttribute("src", `${char.img}`);
-      // fetched_info.appendChild(pic);
-      //一応名前は羅列することができたっぽい
-      // console.log(char.name);
-      // const name = document.createElement("li");
-      // name.classList.add("list");
-      // name.textContent = char.name;
-      // fetched_info.appendChild(name);
-      //===========const ul_name = document.createElement("div"); //infoのdivの中のul
-      let isHoverd = false;
       const ul_name = document.createElement("div");
-      const ul_nickname = document.createElement("div"); //infoのdivの中のul
-      const ul_birthday = document.createElement("div"); //infoのdivの中のul
-      const ul_occupation = document.createElement("div"); //infoのdivの中のul
-      const ul_quote = document.createElement("div"); //infoのdivの中のul
+      const ul_nickname = document.createElement("div"); //infoのdivの中のdiv(ulて書いてあるけどw)
+      const ul_birthday = document.createElement("div"); //infoのdivの中のdiv
+      const ul_occupation = document.createElement("div"); //infoのdivの中のdiv
+      const ul_quote = document.createElement("div"); //infoのdivの中のdiv
+
+      // const eachChar = document.createElement("div");
 
       //infoの見出し
       const head_name = document.createElement("p"); //p作る //ulの子供
@@ -85,8 +80,8 @@ function showChar() {
       const buttonToggle = document.createElement("button");
 
       buttonToggle.addEventListener("click", () => {
-        isHoverd = !isHoverd;
-        if (isHoverd) {
+        isClicked = !isClicked;
+        if (isClicked) {
           console.log("Hey");
           lists.classList.remove("lists-active");
         } else {
@@ -126,14 +121,14 @@ function showChar() {
       fetched_info.appendChild(lists);
       fetched_info.appendChild(buttonToggle);
 
+      // eachChar.appendChild(lists);
+
       lists.appendChild(ul_name);
       lists.appendChild(ul_nickname);
       lists.appendChild(ul_birthday);
       lists.appendChild(ul_occupation);
       lists.appendChild(ul_quote);
     });
-
-    // console.log(pic);
   });
 }
 
