@@ -1,10 +1,10 @@
 const getInfo = document.querySelector(".get_info");
-const fetched_info = document.querySelector(".fetched_info");
+
 const searchInfo = document.querySelector(".search");
 const lists = document.createElement("div"); //infoの方のdiv
 const list = document.createElement("ul"); //infoの方のdiv
 const wrap_name = document.querySelector(".wrap_name"); //ul_nameの親
-
+const fetched_info = document.querySelector(".fetched_info");
 searchInfo.addEventListener("change", () => showChars());
 
 //filter the data which is searched
@@ -28,30 +28,43 @@ function showChars() {
 
   const datas = [
     searchData().then((searchResult) => {
-      const searChar = searchResult.map((char) => {
+      const searChar = searchResult.map((char, index) => { //map has iteration func
         const pic = document.createElement("img");
         pic.classList.add("pic_wrap");
         const ul_name = document.createElement("div");
         const ul_nickname = document.createElement("div"); //infoのdivの中のdiv(ulて書いてあるけどw)
         const ul_birthday = document.createElement("div"); //infoのdivの中のdiv
         const ul_occupation = document.createElement("div"); //infoのdivの中のdiv
+        // const fetched_info = document.querySelector(".fetched_info");
 
         //infoの見出し
         const head_name = document.createElement("p"); //p作る //ulの子供
         const head_nickname = document.createElement("p");
         const head_birthday = document.createElement("p");
         const head_occupation = document.createElement("p");
+        
+        //create divs for dynamic
+        const dynamicContainer = document.createElement("div");
+        const dynamicWrapName = document.createElement("div");
+
+        dynamicContainer.classList.add("listr");
+        dynamicWrapName.classList.add("wrap_name");
+        dynamicContainer.setAttribute("name", "container" + index);
+
+        console.log(dynamicContainer);
+        // console.log(dynamicWrapName);
+
 
         //bottun toggle====================================
-        // const buttonToggle = document.createElement("button");
-        // buttonToggle.classList.add("button-toogle");
-        // fetched_info.appendChild(buttonToggle);
+        const buttonToggle = document.createElement("button");
+        buttonToggle.classList.add("button-toogle");
         //====================================
 
         ul_name.classList.add("list-name");
         ul_nickname.classList.add("list-name");
         ul_birthday.classList.add("list-name");
         ul_occupation.classList.add("list-name");
+        // fetched_info.classList.add("container " + index);
 
         head_name.classList.add("list"); //ulの子供
         head_nickname.classList.add("list");
@@ -75,6 +88,8 @@ function showChars() {
         nickname.classList.add("list-nickname");
         birthday.classList.add("list-bday");
         occupation.classList.add("list-occupation");
+        dynamicContainer.style.position = "relative";
+        pic.style.position = "relative";
 
         name.textContent = char.name;
         nickname.textContent = char.nickname;
@@ -89,6 +104,19 @@ function showChars() {
           birthday.textContent = char.birthday;
         }
 
+        buttonToggle.addEventListener("click", () => {
+          isClicked = !isClicked;
+          if (isClicked) {
+            console.log("Hey");
+            // lists.classList.remove("lists-active");
+            dynamicContainer.remove("lists-active");
+          } else {
+            console.log("No Hey");
+            // lists.classList.add("lists-active");
+            dynamicContainer.add("lists-active");
+          }
+        });
+
         ul_name.appendChild(head_name);
         ul_nickname.appendChild(head_nickname);
         ul_birthday.appendChild(head_birthday);
@@ -100,43 +128,39 @@ function showChars() {
         ul_occupation.appendChild(occupation);
 
         fetched_info.appendChild(pic);
-        fetched_info.appendChild(lists);
+        // dynamicContainer.appendChild(lists);
+        fetched_info.appendChild(dynamicContainer);
 
-        wrap_name.appendChild(ul_name);
-        wrap_name.appendChild(ul_nickname);
-        wrap_name.appendChild(ul_birthday);
-        wrap_name.appendChild(ul_occupation);
-
-        lists.appendChild(wrap_name);
+        dynamicWrapName.appendChild(ul_name);
+        dynamicWrapName.appendChild(ul_nickname);
+        dynamicWrapName.appendChild(ul_birthday);
+        dynamicWrapName.appendChild(ul_occupation);
+        fetched_info.appendChild(buttonToggle);
+        dynamicContainer.appendChild(dynamicWrapName);
       });
     }),
   ];
+
+  return datas;
 }
 
 //datasを配列にしてそこからnewmapにしてforeachで１つずつ処理できんもんかね
 //(ボタン機能を各キャラクターにつけたい)
 
-let showChar = showChars();
-let data = new Map(showChar);
-console.log(data);
+// let showChar = showChars();
+// let data = new Map(showChar.datas);
 
-data.forEach(function (showChars) {
-  // const buttonToggle = document.createElement("button");
-  // buttonToggle.classList.add("button-toogle");
-  // fetched_info.appendChild(buttonToggle);
-  console.log(showChars);
-  buttonToggle.addEventListener("click", () => {
-    isClicked = !isClicked;
-    if (isClicked) {
-      console.log("Hey");
-      lists.classList.remove("lists-active");
-    } else {
-      console.log("No Hey");
-      lists.classList.add("lists-active");
-    }
-  });
-});
+// console.log(data);
+
+// showChars.datas.forEach(showdata);
+// function showdata(data){
+//   console.log(data);
 // }
+
+// const buttonToggle = document.createElement("button");
+// buttonToggle.classList.add("button-toogle");
+// fetched_info.appendChild(buttonToggle);
+// console.log(showChars);
 
 //search a character  データを返す関数
 // function searchData() {
