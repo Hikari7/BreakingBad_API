@@ -28,7 +28,8 @@ function showChars() {
 
   const datas = [
     searchData().then((searchResult) => {
-      const searChar = searchResult.map((char, index) => { //map has iteration func
+      const searChar = searchResult.map((char, index) => {
+        //map has iteration func
         const pic = document.createElement("img");
         pic.classList.add("pic_wrap");
         const ul_name = document.createElement("div");
@@ -42,18 +43,20 @@ function showChars() {
         const head_nickname = document.createElement("p");
         const head_birthday = document.createElement("p");
         const head_occupation = document.createElement("p");
-        
+
         //create divs for dynamic
+        const dynamicChar = document.createElement("div");
         const dynamicContainer = document.createElement("div");
         const dynamicWrapName = document.createElement("div");
 
-        dynamicContainer.classList.add("listr");
-        dynamicWrapName.classList.add("wrap_name");
+        dynamicChar.classList.add("dynamic_char");
+        dynamicContainer.classList.add("dynamic_container");
+        dynamicWrapName.classList.add("dynamic_wrap_name");
         dynamicContainer.setAttribute("name", "container" + index);
 
-        console.log(dynamicContainer);
+        console.log(dynamicWrapName);
+        // console.log(dynamicContainer);
         // console.log(dynamicWrapName);
-
 
         //bottun toggle====================================
         const buttonToggle = document.createElement("button");
@@ -88,8 +91,10 @@ function showChars() {
         nickname.classList.add("list-nickname");
         birthday.classList.add("list-bday");
         occupation.classList.add("list-occupation");
-        dynamicContainer.style.position = "relative";
+        dynamicChar.style.position = "relative";
         pic.style.position = "relative";
+
+        console.log(dynamicChar);
 
         name.textContent = char.name;
         nickname.textContent = char.nickname;
@@ -107,13 +112,16 @@ function showChars() {
         buttonToggle.addEventListener("click", () => {
           isClicked = !isClicked;
           if (isClicked) {
+
+            // dynamicWrapName.classList.add("lists-active");
+            dynamicContainer.classList.add("dynamic-lists-active");
             console.log("Hey");
-            // lists.classList.remove("lists-active");
-            dynamicContainer.remove("lists-active");
           } else {
+            // dynamicWrapName.classList.remove("lists-active");
+            dynamicContainer.classList.remove("dynamic-lists-active");
+
             console.log("No Hey");
             // lists.classList.add("lists-active");
-            dynamicContainer.add("lists-active");
           }
         });
 
@@ -127,16 +135,18 @@ function showChars() {
         ul_birthday.appendChild(birthday);
         ul_occupation.appendChild(occupation);
 
-        fetched_info.appendChild(pic);
+        dynamicChar.appendChild(pic);
         // dynamicContainer.appendChild(lists);
-        fetched_info.appendChild(dynamicContainer);
+        fetched_info.appendChild(dynamicChar);
 
         dynamicWrapName.appendChild(ul_name);
         dynamicWrapName.appendChild(ul_nickname);
         dynamicWrapName.appendChild(ul_birthday);
         dynamicWrapName.appendChild(ul_occupation);
         fetched_info.appendChild(buttonToggle);
+        // dynamicContainer.appendChild(dynamicWrapName);
         dynamicContainer.appendChild(dynamicWrapName);
+        dynamicChar.appendChild(dynamicContainer);
       });
     }),
   ];
@@ -259,10 +269,10 @@ function clickHandler() {
       isClicked = !isClicked;
       if (isClicked) {
         // console.log("Hey");
-        lists.classList.remove("lists-active");
+        lists.classList.add("lists-active");
       } else {
         // console.log("No Hey");
-        lists.classList.add("lists-active");
+        lists.classList.remove("lists-active");
       }
     });
 
