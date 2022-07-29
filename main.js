@@ -1,5 +1,4 @@
 const getInfo = document.querySelector(".get_info");
-
 const searchInfo = document.querySelector(".search");
 const lists = document.createElement("div"); //infoの方のdiv
 const list = document.createElement("ul"); //infoの方のdiv
@@ -21,6 +20,7 @@ const searchData = async () => {
   return searchResult; //changeしたデータが返ってくる
 };
 
+//wrap_nameの親を作る
 function showChars() {
   let isClicked = false;
   fetched_info.textContent = "";
@@ -36,7 +36,7 @@ function showChars() {
         const ul_nickname = document.createElement("div"); //infoのdivの中のdiv(ulて書いてあるけどw)
         const ul_birthday = document.createElement("div"); //infoのdivの中のdiv
         const ul_occupation = document.createElement("div"); //infoのdivの中のdiv
-        // const fetched_info = document.querySelector(".fetched_info");
+        const fetched_info = document.querySelector(".fetched_info");
 
         //infoの見出し
         const head_name = document.createElement("p"); //p作る //ulの子供
@@ -45,16 +45,18 @@ function showChars() {
         const head_occupation = document.createElement("p");
 
         //create divs for dynamic
-        const dynamicChar = document.createElement("div");
+        // const dynamicChar = document.createElement("div");
+        const dynamicLists = document.createElement("div");
         const dynamicContainer = document.createElement("div");
         const dynamicWrapName = document.createElement("div");
 
-        dynamicChar.classList.add("dynamic_char");
+        // dynamicChar.classList.add("dynamic_char");
+        dynamicLists.classList.add("dynamic_lists");
         dynamicContainer.classList.add("dynamic_container");
         dynamicWrapName.classList.add("dynamic_wrap_name");
         dynamicContainer.setAttribute("name", "container" + index);
 
-        console.log(dynamicWrapName);
+        // console.log(dynamicWrapName);
         // console.log(dynamicContainer);
         // console.log(dynamicWrapName);
 
@@ -91,10 +93,11 @@ function showChars() {
         nickname.classList.add("list-nickname");
         birthday.classList.add("list-bday");
         occupation.classList.add("list-occupation");
-        dynamicChar.style.position = "relative";
+        // dynamicChar.style.position = "relative";
+        dynamicContainer.style.position = "relative";
         pic.style.position = "relative";
 
-        console.log(dynamicChar);
+        // console.log(dynamicChar);
 
         name.textContent = char.name;
         nickname.textContent = char.nickname;
@@ -109,17 +112,16 @@ function showChars() {
           birthday.textContent = char.birthday;
         }
 
+        // console.log(dynamicContainer);
         buttonToggle.addEventListener("click", () => {
           isClicked = !isClicked;
           if (isClicked) {
-
             // dynamicWrapName.classList.add("lists-active");
-            dynamicContainer.classList.add("dynamic-lists-active");
+            dynamicLists.classList.add("dynamic-lists-active");
             console.log("Hey");
           } else {
             // dynamicWrapName.classList.remove("lists-active");
-            dynamicContainer.classList.remove("dynamic-lists-active");
-
+            dynamicLists.classList.remove("dynamic-lists-active");
             console.log("No Hey");
             // lists.classList.add("lists-active");
           }
@@ -135,18 +137,44 @@ function showChars() {
         ul_birthday.appendChild(birthday);
         ul_occupation.appendChild(occupation);
 
-        dynamicChar.appendChild(pic);
+        // dynamicChar.appendChild(pic);
         // dynamicContainer.appendChild(lists);
-        fetched_info.appendChild(dynamicChar);
+        // fetched_info.appendChild(dynamicChar);
+
+        //originalバージョン(kubi)
+        // dynamicContainer.appendChild(pic);
+        // dynamicWrapName.appendChild(ul_name);
+        // dynamicWrapName.appendChild(ul_nickname);
+        // dynamicWrapName.appendChild(ul_birthday);
+        // dynamicWrapName.appendChild(ul_occupation);
+        // dynamicContainer.appendChild(buttonToggle);
+        // fetched_info.appendChild(dynamicContainer);
+        // dynamicContainer.appendChild(dynamicWrapName);
+
+        //dynamicCharバージョン
+        // dynamicWrapName.appendChild(ul_name);
+        // dynamicWrapName.appendChild(ul_nickname);
+        // dynamicWrapName.appendChild(ul_birthday);
+        // dynamicWrapName.appendChild(ul_occupation);
+        // dynamicContainer.appendChild(buttonToggle);
+        // // dynamicContainer.appendChild(dynamicWrapName);
+        // dynamicContainer.appendChild(dynamicWrapName);
+        // // dynamicChar.appendChild(dynamicContainer);
+
+        //wrapnameに親要素のdynamicLists足したバージョン
+        //container > pic/lists > wrapname
+        fetched_info.appendChild(dynamicContainer);
+
+        dynamicContainer.appendChild(pic);
+        dynamicContainer.appendChild(dynamicLists);
+        dynamicContainer.appendChild(buttonToggle);
+
+        dynamicLists.appendChild(dynamicWrapName);
 
         dynamicWrapName.appendChild(ul_name);
         dynamicWrapName.appendChild(ul_nickname);
         dynamicWrapName.appendChild(ul_birthday);
         dynamicWrapName.appendChild(ul_occupation);
-        fetched_info.appendChild(buttonToggle);
-        // dynamicContainer.appendChild(dynamicWrapName);
-        dynamicContainer.appendChild(dynamicWrapName);
-        dynamicChar.appendChild(dynamicContainer);
       });
     }),
   ];
