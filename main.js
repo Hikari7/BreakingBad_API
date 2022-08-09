@@ -1,26 +1,22 @@
 const getInfo = document.querySelector(".get_info");
 const searchInfo = document.querySelector(".search");
-const lists = document.createElement("div"); //infoの方のdiv
-const list = document.createElement("ul"); //infoの方のdiv
-const wrap_name = document.querySelector(".wrap_name"); //ul_nameの親
+const lists = document.createElement("div");
+const list = document.createElement("ul");
+const wrap_name = document.querySelector(".wrap_name");
 const fetched_info = document.querySelector(".fetched_info");
 searchInfo.addEventListener("change", () => showChars());
 
-//filter the data which is searched
 const searchData = async () => {
   const allChar = await axios.get(
     "https://www.breakingbadapi.com/api/characters"
-  ); //全キャラクター用のAPI
-  const resData = allChar.data; //全キャラクターのデータを取ってくる
-  let putValue = searchInfo.value;
-  let text = putValue.slice(0, 1).toUpperCase() + putValue.slice(1); //make to upperCase only the first letter
-  let searchResult = resData.filter(
-    (char) => char.name.includes(text) //keyupした値がキャラクターの名前に含まれているかフィルター
   );
-  return searchResult; //changeしたデータが返ってくる
+  const resData = allChar.data;
+  let putValue = searchInfo.value;
+  let text = putValue.slice(0, 1).toUpperCase() + putValue.slice(1);
+  let searchResult = resData.filter((char) => char.name.includes(text));
+  return searchResult;
 };
 
-//wrap_nameの親を作る
 function showChars() {
   let isClicked = false;
   fetched_info.textContent = "";
@@ -29,49 +25,39 @@ function showChars() {
   const datas = [
     searchData().then((searchResult) => {
       const searChar = searchResult.map((char, index) => {
-        //map has iteration func
         const pic = document.createElement("img");
         pic.classList.add("pic_wrap");
         const ul_name = document.createElement("div");
-        const ul_nickname = document.createElement("div"); //infoのdivの中のdiv(ulて書いてあるけどw)
-        const ul_birthday = document.createElement("div"); //infoのdivの中のdiv
-        const ul_occupation = document.createElement("div"); //infoのdivの中のdiv
+        const ul_nickname = document.createElement("div");
+        const ul_birthday = document.createElement("div");
+        const ul_occupation = document.createElement("div");
         const fetched_info = document.querySelector(".fetched_info");
 
         //infoの見出し
-        const head_name = document.createElement("p"); //p作る //ulの子供
+        const head_name = document.createElement("p");
         const head_nickname = document.createElement("p");
         const head_birthday = document.createElement("p");
         const head_occupation = document.createElement("p");
 
         //create divs for dynamic
-        // const dynamicChar = document.createElement("div");
         const dynamicLists = document.createElement("div");
         const dynamicContainer = document.createElement("div");
         const dynamicWrapName = document.createElement("div");
 
-        // dynamicChar.classList.add("dynamic_char");
         dynamicLists.classList.add("dynamic_lists");
         dynamicContainer.classList.add("dynamic_container");
         dynamicWrapName.classList.add("dynamic_wrap_name");
         dynamicContainer.setAttribute("name", "container" + index);
 
-        // console.log(dynamicWrapName);
-        // console.log(dynamicContainer);
-        // console.log(dynamicWrapName);
-
-        //bottun toggle====================================
         const buttonToggle = document.createElement("button");
         buttonToggle.classList.add("button-toogle");
-        //====================================
 
         ul_name.classList.add("list-name");
         ul_nickname.classList.add("list-name");
         ul_birthday.classList.add("list-name");
         ul_occupation.classList.add("list-name");
-        // fetched_info.classList.add("container " + index);
 
-        head_name.classList.add("list"); //ulの子供
+        head_name.classList.add("list");
         head_nickname.classList.add("list");
         head_birthday.classList.add("list");
         head_occupation.classList.add("list");
@@ -83,7 +69,6 @@ function showChars() {
         head_birthday.textContent = "Birthday: ";
         head_occupation.textContent = "Occupation: ";
 
-        //Fetchで取ってきた情報
         const name = document.createElement("li");
         const nickname = document.createElement("li");
         const birthday = document.createElement("li");
@@ -93,11 +78,8 @@ function showChars() {
         nickname.classList.add("list-nickname");
         birthday.classList.add("list-bday");
         occupation.classList.add("list-occupation");
-        // dynamicChar.style.position = "relative";
         dynamicContainer.style.position = "relative";
         pic.style.position = "relative";
-
-        // console.log(dynamicChar);
 
         name.textContent = char.name;
         nickname.textContent = char.nickname;
@@ -112,18 +94,14 @@ function showChars() {
           birthday.textContent = char.birthday;
         }
 
-        // console.log(dynamicContainer);
         buttonToggle.addEventListener("click", () => {
           isClicked = !isClicked;
           if (isClicked) {
-            // dynamicWrapName.classList.add("lists-active");
             dynamicLists.classList.add("dynamic-lists-active");
             console.log("Hey");
           } else {
-            // dynamicWrapName.classList.remove("lists-active");
             dynamicLists.classList.remove("dynamic-lists-active");
             console.log("No Hey");
-            // lists.classList.add("lists-active");
           }
         });
 
@@ -137,31 +115,6 @@ function showChars() {
         ul_birthday.appendChild(birthday);
         ul_occupation.appendChild(occupation);
 
-        // dynamicChar.appendChild(pic);
-        // dynamicContainer.appendChild(lists);
-        // fetched_info.appendChild(dynamicChar);
-
-        //originalバージョン(kubi)
-        // dynamicContainer.appendChild(pic);
-        // dynamicWrapName.appendChild(ul_name);
-        // dynamicWrapName.appendChild(ul_nickname);
-        // dynamicWrapName.appendChild(ul_birthday);
-        // dynamicWrapName.appendChild(ul_occupation);
-        // dynamicContainer.appendChild(buttonToggle);
-        // fetched_info.appendChild(dynamicContainer);
-        // dynamicContainer.appendChild(dynamicWrapName);
-
-        //dynamicCharバージョン
-        // dynamicWrapName.appendChild(ul_name);
-        // dynamicWrapName.appendChild(ul_nickname);
-        // dynamicWrapName.appendChild(ul_birthday);
-        // dynamicWrapName.appendChild(ul_occupation);
-        // dynamicContainer.appendChild(buttonToggle);
-        // // dynamicContainer.appendChild(dynamicWrapName);
-        // dynamicContainer.appendChild(dynamicWrapName);
-        // // dynamicChar.appendChild(dynamicContainer);
-
-        //wrapnameに親要素のdynamicLists足したバージョン
         //container > pic/lists > wrapname
         fetched_info.appendChild(dynamicContainer);
 
@@ -182,84 +135,38 @@ function showChars() {
   return datas;
 }
 
-//datasを配列にしてそこからnewmapにしてforeachで１つずつ処理できんもんかね
-//(ボタン機能を各キャラクターにつけたい)
-
-// let showChar = showChars();
-// let data = new Map(showChar.datas);
-
-// console.log(data);
-
-// showChars.datas.forEach(showdata);
-// function showdata(data){
-//   console.log(data);
-// }
-
-// const buttonToggle = document.createElement("button");
-// buttonToggle.classList.add("button-toogle");
-// fetched_info.appendChild(buttonToggle);
-// console.log(showChars);
-
-//search a character  データを返す関数
-// function searchData() {
-//   const characterData = dataFetching();
-//   console.log(characterData);
-//   const results = characterData.filter((char) =>
-//     char.name.includes(searchInfo.value)
-//   );
-//   console.log(results);
-
-//   // let search = searchInfo.value;
-//   // dataFetching(search)
-
-//   const result = charData.filter((char) => res.name);
-//   console.log(result);
-// });
-// }
-
-getInfo.addEventListener("click", () => clickHandler()); //bitchボタン押したらfetchinfo関数が呼ばれる
-// import axios from 'axios'
+getInfo.addEventListener("click", () => clickHandler());
 const dataFetching = async () => {
   const charEndpoint = "https://www.breakingbadapi.com/api/character/random";
   const quoteEndpoint = `https://www.breakingbadapi.com/api/quote/random?author=`;
 
-  const response = await axios(charEndpoint); //await: 非同期実行するメソッドの完了を待つ,axiousは簡単にfetchできるコンポーネント
-  //only retrieve the data part of the response (due to axios)
-  const charData = response.data[0]; //APIのDataの情報を取ってくる
+  const response = await axios(charEndpoint);
+  const charData = response.data[0];
 
-  //extract the character's name from the object and assign to a variable
   let charaName = charData.name.replaceAll(" ", "+");
-  //fetch the quote with the character's name as author's value　　　//autherと結合
-  let charaQuote = await axios(quoteEndpoint + charaName); //url繋いでるだけ
-  //insert a property called `quote` in charData object
-  //if charaQuote is undefined (character has no quote), assign an empty object
+  let charaQuote = await axios(quoteEndpoint + charaName);
+
   charData.quote = charaQuote.data[0] || {};
   return charData;
 };
 
-//get a random character
 function clickHandler() {
-  //クリックしたら発火
   dataFetching().then((response) => {
     let isClicked = false;
     fetched_info.textContent = "";
     wrap_name.textContent = "";
 
-    //DOM操作
     const pic = document.createElement("img");
     pic.classList.add("char_pic");
     pic.classList.add("pic_wrap");
 
-    //スタイリングのためのdivとul
+    const ul_name = document.createElement("div");
+    const ul_nickname = document.createElement("div");
+    const ul_birthday = document.createElement("div");
+    const ul_occupation = document.createElement("div");
+    const ul_quote = document.createElement("div");
 
-    const ul_name = document.createElement("div"); //infoのdivの中のul
-    const ul_nickname = document.createElement("div"); //infoのdivの中のul
-    const ul_birthday = document.createElement("div"); //infoのdivの中のul
-    const ul_occupation = document.createElement("div"); //infoのdivの中のul
-    const ul_quote = document.createElement("div"); //infoのdivの中のul
-
-    //infoの見出し
-    const head_name = document.createElement("p"); //p作る //ulの子供
+    const head_name = document.createElement("p");
     const head_nickname = document.createElement("p");
     const head_birthday = document.createElement("p");
     const head_occupation = document.createElement("p");
@@ -271,7 +178,7 @@ function clickHandler() {
     ul_occupation.classList.add("list-name");
     ul_quote.classList.add("list-name");
 
-    head_name.classList.add("list"); //ulの子供
+    head_name.classList.add("list");
     head_nickname.classList.add("list");
     head_birthday.classList.add("list");
     head_occupation.classList.add("list");
@@ -285,7 +192,6 @@ function clickHandler() {
     head_occupation.textContent = "Occupation: ";
     head_quote.textContent = "Quote: ";
 
-    //Fetchで取ってきた情報
     const name = document.createElement("li");
     const nickname = document.createElement("li");
     const birthday = document.createElement("li");
@@ -296,10 +202,8 @@ function clickHandler() {
     buttonToggle.addEventListener("click", (index) => {
       isClicked = !isClicked;
       if (isClicked) {
-        // console.log("Hey");
         lists.classList.add("lists-active");
       } else {
-        // console.log("No Hey");
         lists.classList.remove("lists-active");
       }
     });
